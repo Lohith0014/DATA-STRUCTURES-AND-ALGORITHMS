@@ -79,25 +79,38 @@ int main() {
 void create() {
     struct node *temp, *ptr;
     temp = (struct node *)malloc(sizeof(struct node));
+    if (temp == NULL) {
+        printf("\nOut of Memory Space: \n");
+        exit(0);
+    }
     printf("\nEnter the data value for the node: ");
     scanf("%d", &temp->info);
     temp->next = NULL;
-    ptr = start;
-    while (ptr->next != NULL) {
- 	ptr = ptr->next;
+    if (start == NULL) {
+        start = temp;
+    } else {
+        ptr = start;
+        while (ptr->next != NULL) {
+            ptr = ptr->next;
+        }
+        ptr->next = temp;
     }
-    ptr->next = temp;
 }
 
 void display() {
     struct node *ptr;
-    ptr = start;
-    printf("\nThe List elements are:\n");
-    while (ptr != NULL) {
-    	printf("%d ", ptr->info);
-        ptr = ptr->next;
+    if (start == NULL) {
+        printf("\nList is empty! \n");
+        return;
+    } else {
+        ptr = start;
+        printf("\nThe List elements are:\n");
+        while (ptr != NULL) {
+            printf("%d ", ptr->info);
+            ptr = ptr->next;
+        }
+        printf("\n");
     }
-    printf("\n");
 }
 
 // Rest of the functions follow similarly
